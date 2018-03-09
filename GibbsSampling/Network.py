@@ -66,7 +66,34 @@ class Network:
 
     # performs hillclimbing algorithm on initialized board
     def query(self, nodeQuery):
-        print("Performing Query of " + nodeQuery)
+        node = self.dicNodes.get(nodeQuery)
+        print("Performing Query of " + node.name)
+
+
+        #Performing markov blanket
+        parents = node.parents
+        children = node.children
+        childrenParents = []
+        for curNode in children:
+            for curParent in curNode.parents:
+                if curParent is not node:
+                    childrenParents.append(curParent)
+
+        print("The Markov Blanket if this query is")
+        print("Parents")
+        self.printNodeList(parents)
+        print("Children")
+        self.printNodeList(children)
+        print("Children Parents")
+        self.printNodeList(childrenParents)
+
+    #Prints the name of the list of nodes
+    def printNodeList(self, list):
+        str = ""
+        #add all of the node's names to the string
+        for curNode in list:
+            str += curNode.name + ", "
+        print(str)
 
     def printingNetwork(self):
         print("Prining the network")
@@ -92,21 +119,21 @@ class Network:
 
     def printingNetworkMaps(self):
         print("Prining the network using maps")
-        curNode = self.dicNodes.get("amenities")
+        myNodes = self.dicNodes
 
+        for curNode in myNodes.itervalues():
+            print("Evaluating the node: " + curNode.name)
+            curChildren = curNode.children
+            curParents = curNode.parents
 
+            #Print the parents of the node
+            parentStr = ""
+            for curNode in curParents:
+                parentStr += curNode.name + ", "
+            print("Parents: " + parentStr)
 
-        print("Evaluating the node: " + curNode.name)
-        curChildren = curNode.children
-        curParents = curNode.parents
-        #Print the parents of the node
-        parentStr = ""
-        for curNode in curParents:
-            parentStr += curNode.name + ", "
-        print("Parents: " + parentStr)
-
-        #Print the children of the nodes
-        childStr = ""
-        for curNode in curChildren:
-            childStr += curNode.name + ", "
+            #Print the children of the nodes
+            childStr = ""
+            for curNode in curChildren:
+                childStr += curNode.name + ", "
             print("Children: " + childStr)
