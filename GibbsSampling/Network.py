@@ -5,6 +5,7 @@ class Network:
     def __init__(self, name):
         self.name = name
         self.nodes = []
+        self.dicNodes = {}
 
         #Create all the Node Objects
         amenities =     Node("amenities")
@@ -55,11 +56,13 @@ class Network:
         self.nodes.append(neighborhood)
         self.nodes.append(location)
         self.nodes.append(children)
-
         self.nodes.append(age)
         self.nodes.append(size)
         self.nodes.append(schools)
         self.nodes.append(price)
+
+        #Hashmaps
+        self.dicNodes = dict([ (n.name, n) for n in self.nodes ])
 
     # performs hillclimbing algorithm on initialized board
     def query(self, nodeQuery):
@@ -70,7 +73,7 @@ class Network:
         myNodes = self.nodes
 
         for curNode in myNodes:
-            print("Evaluating the node: " + curNode.name);
+            print("Evaluating the node: " + curNode.name)
             curChildren = curNode.children
             curParents = curNode.parents
 
@@ -84,4 +87,26 @@ class Network:
             childStr = ""
             for curNode in curChildren:
                 childStr += curNode.name + ", "
+            print("Children: " + childStr)
+
+
+    def printingNetworkMaps(self):
+        print("Prining the network using maps")
+        curNode = self.dicNodes.get("amenities")
+
+
+
+        print("Evaluating the node: " + curNode.name)
+        curChildren = curNode.children
+        curParents = curNode.parents
+        #Print the parents of the node
+        parentStr = ""
+        for curNode in curParents:
+            parentStr += curNode.name + ", "
+        print("Parents: " + parentStr)
+
+        #Print the children of the nodes
+        childStr = ""
+        for curNode in curChildren:
+            childStr += curNode.name + ", "
             print("Children: " + childStr)

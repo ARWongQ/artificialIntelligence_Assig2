@@ -22,7 +22,7 @@ def main():
     myNetwork = Network("Bayesian Network")
 
     #Perform Query
-    myNetwork.query(nodeQuery)
+    myNetwork.printingNetworkMaps()
 
 #Run the main function
 if __name__ == "__main__":
