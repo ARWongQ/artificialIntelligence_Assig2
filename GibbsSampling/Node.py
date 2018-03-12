@@ -4,3 +4,8 @@ class Node:
         self.name = name
         self.parents = []
         self.children = []
+        self.childrenParents = []
+        self.evidence = False
+        self.currentValue = 0
+        self.iterations = 0
+        self.pTable = None

@@ -21,6 +21,9 @@ def main():
     #Create the network
     myNetwork = Network("Bayesian Network")
 
+    #Set All the children parents for each node
+    myNetwork.setChildrenParents();
+
     #Perform Query
     myNetwork.query(nodeQuery)
 

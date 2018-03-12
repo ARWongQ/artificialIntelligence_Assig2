@@ -136,7 +136,7 @@ class Network:
         #Hashmaps
         self.dicNodes = dict([ (n.name, n) for n in self.nodes ])
 
-    # performs hillclimbing algorithm on initialized board
+    #Query
     def query(self, nodeQuery):
         node = self.dicNodes.get(nodeQuery)
         print("Performing Query of " + node.name)
@@ -188,6 +188,8 @@ class Network:
                 childStr += curNode.name + ", "
             print("Children: " + childStr)
 
+    def setChildrenParents(self):
+        print("Setting all children parents")
 
     def printingNetworkMaps(self):
         print("Prining the network using maps")
