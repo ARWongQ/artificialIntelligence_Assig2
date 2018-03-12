@@ -25,7 +25,7 @@ def main():
     myNetwork.setChildrenParents();
 
     #Perform Query
-    myNetwork.query(nodeQuery)
+    myNetwork.query(nodeQuery,int(numUpdates),int(numDrops))
 
 #Run the main function
 if __name__ == "__main__":

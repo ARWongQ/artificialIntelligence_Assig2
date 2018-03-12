@@ -7,15 +7,49 @@ class Network:
         self.nodes = []
         self.dicNodes = {}
 
-        #Create all the Node Objects
-        amenities =     Node("amenities")
-        neighborhood =  Node("neighborhood")
-        location =      Node("location")
-        children =      Node("children")
-        age =           Node("age")
-        size =          Node("size")
-        schools =       Node("schools")
-        price =         Node("price")
+        #Create all the Node Object
+        amenitiesOp = []
+        amenitiesOp.append("Lots")
+        amenitiesOp.append("Little")
+        amenities =     Node("amenities", amenitiesOp)
+
+        neighborhoodOp = []
+        neighborhoodOp.append("Bad")
+        neighborhoodOp.append("Good")
+        neighborhood =  Node("neighborhood", neighborhoodOp)
+
+        locationOp = []
+        locationOp.append("Bad")
+        locationOp.append("Good")
+        locationOp.append("Ugly")
+        location =      Node("location", locationOp)
+
+        childrenOp = []
+        childrenOp.append("Bad")
+        childrenOp.append("Good")
+        children =      Node("children", childrenOp)
+
+        ageOp = []
+        ageOp.append("Old")
+        ageOp.append("New")
+        age =           Node("age", ageOp)
+
+        sizeOp = []
+        sizeOp.append("Small")
+        sizeOp.append("Medium")
+        sizeOp.append("Large")
+        size =          Node("size", sizeOp)
+
+        schoolsOp = []
+        schoolsOp.append("Bad")
+        schoolsOp.append("Good")
+        schools =       Node("schools", schoolsOp)
+
+        priceOp = []
+        priceOp.append("Cheap")
+        priceOp.append("Ok")
+        priceOp.append("Expensive")
+        price =         Node("price", priceOp)
 
 
         #Create all the Node Objects dependencies (parent children etc)
@@ -137,27 +171,31 @@ class Network:
         self.dicNodes = dict([ (n.name, n) for n in self.nodes ])
 
     #Query
-    def query(self, nodeQuery):
+    def query(self, nodeQuery, numUpdates, numDrops):
         node = self.dicNodes.get(nodeQuery)
         print("Performing Query of " + node.name)
 
 
-        #Performing markov blanket
-        parents = node.parents
-        children = node.children
-        childrenParents = []
-        for curNode in children:
-            for curParent in curNode.parents:
-                if curParent is not node:
-                    childrenParents.append(curParent)
+        # #Performing markov blanket
+        # parents = node.parents
+        # children = node.children
+        # childrenParents = []
+        # for curNode in children:
+        #     for curParent in curNode.parents:
+        #         if curParent is not node:
+        #             childrenParents.append(curParent)
+        #
+        # print("The Markov Blanket if this query is")
+        # print("Parents")
+        # self.printNodeList(parents)
+        # print("Children")
+        # self.printNodeList(children)
+        # print("Children Parents")
+        # self.printNodeList(childrenParents)
 
-        print("The Markov Blanket if this query is")
-        print("Parents")
-        self.printNodeList(parents)
-        print("Children")
-        self.printNodeList(children)
-        print("Children Parents")
-        self.printNodeList(childrenParents)
+        for i in xrange(numUpdates):
+            currentNode = self.nodes[i%len(self.nodes)]
+            currentNode.assignValue()
 
     #Prints the name of the list of nodes
     def printNodeList(self, list):
