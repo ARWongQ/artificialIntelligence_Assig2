@@ -145,13 +145,13 @@ class Network:
         agepTable = [[0 for x in range(3)] for y in range(3)]
         #location :index1
         #age :index2
-        agepTable[0][0]=0.6
-        agepTable[1][0]=0.3
-        agepTable[2][0]=0.9
+        agepTable[bad][old]=0.6
+        agepTable[good][old]=0.3
+        agepTable[ugly][old]=0.9
 
-        agepTable[0][1]=0.4
-        agepTable[1][1]=0.7
-        agepTable[2][1]=0.1
+        agepTable[bad][new]=0.4
+        agepTable[good][new]=0.7
+        agepTable[ugly][new]=0.1
         age.pTable = agepTable
 
 
@@ -161,22 +161,22 @@ class Network:
         #location :index3
 
         #Bad=0
-        locationpTable[0][0][0]=0.4
-        locationpTable[0][1][0]=0.15
-        locationpTable[1][0][0]=0.4
-        locationpTable[1][1][0]=0.35
+        locationpTable[lots][bad][bad]=0.4
+        locationpTable[lots][good][bad]=0.15
+        locationpTable[little][bad][bad]=0.4
+        locationpTable[little][good][bad]=0.35
 
         #Good=1
-        locationpTable[0][0][1]=0.3
-        locationpTable[0][1][1]=0.8
-        locationpTable[1][0][1]=0.2
-        locationpTable[1][1][1]=0.5
+        locationpTable[lots][bad][good]=0.3
+        locationpTable[lots][good][good]=0.8
+        locationpTable[little][bad][good]=0.2
+        locationpTable[little][good][good]=0.5
 
         #Ugly=2
-        locationpTable[0][0][2]=0.3
-        locationpTable[0][1][2]=0.05
-        locationpTable[1][0][2]=0.4
-        locationpTable[1][1][2]=0.15
+        locationpTable[lots][bad][ugly]=0.3
+        locationpTable[lots][good][ugly]=0.05
+        locationpTable[little][bad][ugly]=0.4
+        locationpTable[little][good][ugly]=0.15
 
         #Price table [][][][][]
         #location: index1 #bad=0, good=1, ugly= 2
@@ -315,8 +315,15 @@ class Network:
         node = self.dicNodes.get(nodeQuery)
         print("Performing Query of " + node.name)
 
+        for i in xrange(numUpdates):
+            currentNode = self.nodes[i%len(self.nodes)]
+            currentNode.assignValue()
 
-        # #Performing markov blanket
+    #Sets all the childrenParents in the network
+    def setChildrenParents(self):
+        print("Setting all children parents")
+
+         # #Performing markov blanket
         # parents = node.parents
         # children = node.children
         # childrenParents = []
@@ -333,9 +340,6 @@ class Network:
         # print("Children Parents")
         # self.printNodeList(childrenParents)
 
-        for i in xrange(numUpdates):
-            currentNode = self.nodes[i%len(self.nodes)]
-            currentNode.assignValue()
 
     #Prints the name of the list of nodes
     def printNodeList(self, list):
@@ -365,9 +369,6 @@ class Network:
             for curNode in curChildren:
                 childStr += curNode.name + ", "
             print("Children: " + childStr)
-
-    def setChildrenParents(self):
-        print("Setting all children parents")
 
     def printingNetworkMaps(self):
         print("Prining the network using maps")
