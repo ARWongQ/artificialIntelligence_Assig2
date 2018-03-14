@@ -177,6 +177,7 @@ class Network:
         locationpTable[lots][good][ugly]=0.05
         locationpTable[little][bad][ugly]=0.4
         locationpTable[little][good][ugly]=0.15
+        location.pTable = locationpTable
 
         #Price table [][][][][]
         #location: index1 #bad=0, good=1, ugly= 2
@@ -315,30 +316,45 @@ class Network:
         node = self.dicNodes.get(nodeQuery)
         print("Performing Query of " + node.name)
 
+        #Set all the numDrops for the nodes in the network
+        for curNode in self.nodes:
+            curNode.deleteCnt = numDrops
+
+
+        #Looping through all the nodes and assigns a new value every update for each node
         for i in xrange(numUpdates):
             currentNode = self.nodes[i%len(self.nodes)]
             currentNode.assignValue()
 
-    #Sets all the childrenParents in the network
-    def setChildrenParents(self):
-        print("Setting all children parents")
+        node.calcFinalProb()
 
-         # #Performing markov blanket
-        # parents = node.parents
-        # children = node.children
-        # childrenParents = []
-        # for curNode in children:
-        #     for curParent in curNode.parents:
-        #         if curParent is not node:
-        #             childrenParents.append(curParent)
-        #
-        # print("The Markov Blanket if this query is")
-        # print("Parents")
-        # self.printNodeList(parents)
-        # print("Children")
-        # self.printNodeList(children)
-        # print("Children Parents")
-        # self.printNodeList(childrenParents)
+    #Set random values to the whole newtork
+    def setRandomValues(self):
+        #Currently they all start with "0"
+        for curNode in self.nodes:
+            curNode.currentValue = 0
+
+
+    # #Sets all the childrenParents in the network
+    # def setChildrenParents(self):
+    #     print("Setting all children parents")
+    #     #Getting nodes form the netwrok
+    #     myNodes = self.dicNodes
+    #
+    #     for curNode in myNodes.itervalues():
+    #
+    #         #Performing markov blanket
+    #         parents = curNode.parents
+    #         children = curNode.children
+    #         childrenParents = []
+    #         for curNode2 in children:
+    #             for curParent in curNode2.parents:
+    #                 childrenParents.append(curParent)
+    #
+    #
+
+
+
 
 
 
