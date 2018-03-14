@@ -341,6 +341,7 @@ class Network:
         # self.printNodeList(childrenParents)
 
 
+
     #Prints the name of the list of nodes
     def printNodeList(self, list):
         str = ""

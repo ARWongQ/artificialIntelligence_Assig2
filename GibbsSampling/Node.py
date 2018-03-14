@@ -17,19 +17,24 @@ class Node:
         self.iterations+=1
 
         # this will be changed
-        self.currentValue = 0
+        # self.currentValue = 0
+        
+        
 
         if self.iterations > self.deleteCnt:
             self.valueList.append(self.currentValue)
 
 
-    def calcProb(self):
+    def calcFinalProb(self):
         if(len(self.valueList) < 1):
+            print('Not enough updates to overcome count of updates to delete.')
             return -1
 
-        zeroCnt = self.valueList.count(0)
-        oneCnt = self.valueList.count(1)
-        twoCnt = self.valueList.count(2)
+        for x in xrange(len(self.possibleValues)):
+            numCnt = self.valueList.count(x)
+            print('P('+self.name+' = '+self.possibleValues[x]+') = ' + str(numCnt/len(self.valueList)))
+
+
 
 
 
