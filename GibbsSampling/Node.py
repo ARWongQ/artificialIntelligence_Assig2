@@ -10,7 +10,7 @@ class Node:
         self.possibleValues = possibleValues
         self.deleteCnt = 0
         self.iterations = 0
-        self.pTable = None
+        self.pTableDic = None
 
     #Sets the specific value based on the Markov blanket of the node its probability and a random number
     def assignValue(self):
@@ -27,7 +27,7 @@ class Node:
 
         if(name == "amenities"):
             print("checking amenities")
-            self.amenitiesMath()
+            self.amenitiesMath2()
 
         elif(name == "neighborhood"):
             print("checking neighborhood")
@@ -80,8 +80,24 @@ class Node:
 
         print(aLots)
         print(aLittle)
-        
 
+    #Uses a map instead of array
+    def amenitiesMath2(self):
+        myTable = self.pTableDic
+        locationTable = self.children[0].pTableDic
+        locationCV = self.children[0].currentValue
+        neighborhoodCV = self.children[0].parents[0].currentValue
+
+        aLotsTemp = myTable.get("lots") * locationTable.get("lots bad bad ")
+        aLittleTemp = myTable.get("little") * locationTable.get("little bad bad ")
+
+        alpha= aLotsTemp + aLittleTemp
+
+        aLots = aLotsTemp/alpha
+        aLittle = aLittleTemp/alpha
+
+        print(aLots)
+        print(aLittle)
 
     #This function calculates the probabilty of the node which was query
     def calcFinalProb(self):
@@ -96,8 +112,10 @@ class Node:
 
 
 
+    #Converts a number to a string
+    def numToString(self):
+        print("Converting to String")
 
-
-
-
-
+    #Converts a string to a number
+    def stringToNum(self):
+        print("Converting to Num")

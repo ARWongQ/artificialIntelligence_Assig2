@@ -104,199 +104,209 @@ class Network:
         old=0
         new=1
 
+        #Tables are dictionaries
         #Add tables
-        amenitiespTable = [0 for x in range(2)]
+
+        #Amenities
         #lots=0 little=1
-        amenitiespTable[lots]=0.3
-        amenitiespTable[little]= 1 - amenitiespTable[0]
-        amenities.pTable = amenitiespTable
+        amenitiespTableDic = {}
+        amenitiespTableDic.update({'lots': 0.3})
+        amenitiespTableDic.update({'little': 0.7})
+        amenities.pTableDic = amenitiespTableDic
 
-        nbpTable = [0 for x in range(2)]
+        #Neighborhood
         #bad=0 good=1
-        nbpTable[bad]=0.4
-        nbpTable[good]= 1 - nbpTable[0]
-        neighborhood.pTable = nbpTable
+        neighborhoodpTableDic = {}
+        neighborhoodpTableDic.update({'bad': 0.4})
+        neighborhoodpTableDic.update({'good': 0.6})
+        neighborhood.pTableDic = neighborhoodpTableDic
 
-        sizepTable = [0 for x in range(3)]
-        # small=0 medium=1 large=2
-        sizepTable[small]=0.33
-        sizepTable[medium]=0.34
-        sizepTable[large]=0.33
-        size.pTable = sizepTable
-
-        childrenpTable = [[0 for x in range(2)] for y in range(2)]
-        #Neighborhood: index1
-        #Children: index2
-        childrenpTable[bad][bad]=0.6
-        childrenpTable[bad][good]=0.4
-        childrenpTable[good][bad]=0.3
-        childrenpTable[good][good]=0.7
-        children.pTable = childrenpTable
-
-        schoolspTable = [[0 for x in range(2)] for y in range(2)]
-        # children: index1
-        # schools: index2
-        schoolspTable[bad][bad]=0.7
-        schoolspTable[bad][good]=0.3
-        schoolspTable[good][bad]=0.8
-        schoolspTable[good][good]=0.2
-        schools.pTable = schoolspTable
-
-        agepTable = [[0 for x in range(3)] for y in range(3)]
-        #location :index1
-        #age :index2
-        agepTable[bad][old]=0.6
-        agepTable[good][old]=0.3
-        agepTable[ugly][old]=0.9
-
-        agepTable[bad][new]=0.4
-        agepTable[good][new]=0.7
-        agepTable[ugly][new]=0.1
-        age.pTable = agepTable
-
-
-        locationpTable = [[[0 for k in xrange(3)] for x in xrange(3)] for y in xrange(3)]
+        #Location
         #amenities :index1
         #neighborhood :index2
         #location :index3
+        locationpTableDic = {}
+        locationpTableDic.update({'lots bad good ': 0.3})
+        locationpTableDic.update({'lots good good ': 0.8})
+        locationpTableDic.update({'little bad good ': 0.2})
+        locationpTableDic.update({'little good good ': 0.5})
 
-        #Bad=0
-        locationpTable[lots][bad][bad]=0.4
-        locationpTable[lots][good][bad]=0.15
-        locationpTable[little][bad][bad]=0.4
-        locationpTable[little][good][bad]=0.35
+        locationpTableDic.update({'lots bad bad ': 0.4})
+        locationpTableDic.update({'lots good bad ': 0.15})
+        locationpTableDic.update({'little bad bad ': 0.4})
+        locationpTableDic.update({'little good bad ': 0.35})
 
-        #Good=1
-        locationpTable[lots][bad][good]=0.3
-        locationpTable[lots][good][good]=0.8
-        locationpTable[little][bad][good]=0.2
-        locationpTable[little][good][good]=0.5
+        locationpTableDic.update({'lots bad ugly ': 0.3})
+        locationpTableDic.update({'lots good ugly ': 0.05})
+        locationpTableDic.update({'little bad ugly ': 0.4})
+        locationpTableDic.update({'little good ugly ': 0.15})
+        location.pTableDic = locationpTableDic
 
-        #Ugly=2
-        locationpTable[lots][bad][ugly]=0.3
-        locationpTable[lots][good][ugly]=0.05
-        locationpTable[little][bad][ugly]=0.4
-        locationpTable[little][good][ugly]=0.15
-        location.pTable = locationpTable
+        #Children
+        #Neighborhood: index1
+        #Children: index2
+        childrenpTableDic = {}
+        childrenpTableDic.update({'bad bad ': 0.6})
+        childrenpTableDic.update({'good bad ': 0.3})
 
-        #Price table [][][][][]
+        childrenpTableDic.update({'bad good ': 0.4})
+        childrenpTableDic.update({'good good ': 0.7})
+        children.pTableDic = childrenpTableDic
+
+        #Size
+        # small=0 medium=1 large=2
+        sizepTableDic = {}
+        sizepTableDic.update({'small': 0.33})
+        sizepTableDic.update({'medium': 0.34})
+        sizepTableDic.update({'large': 0.33})
+        size.pTableDic = sizepTableDic
+
+
+        #School
+        # children: index1
+        # schools: index2
+        schoolpTableDic = {}
+        schoolpTableDic.update({'bad bad ': 0.7})
+        schoolpTableDic.update({'good bad ': 0.8})
+
+        schoolpTableDic.update({'bad good ': 0.3})
+        schoolpTableDic.update({'good good ': 0.2})
+        schools.pTableDic = schoolpTableDic
+
+
+        #Age
+        #location :index1
+        #age :index2
+        agepTableDic = {}
+        agepTableDic.update({'good old ': 0.3})
+        agepTableDic.update({'bad old ': 0.6})
+        agepTableDic.update({'ugly old ': 0.9})
+
+        agepTableDic.update({'good new ': 0.7})
+        agepTableDic.update({'bad new ': 0.4})
+        agepTableDic.update({'ugly new ': 0.1})
+        age.pTableDic = agepTableDic
+
+
+        #Price
         #location: index1 #bad=0, good=1, ugly= 2
         #age: index2 #old=0 new=1
         #schools: index3 #bad=0, good=1
         #size : index4 #small=0, medium=1, large=2
         #price: index5 #cheap=0, ok=1, expensive=2
-        pricepTable = [[[[[0 for k in xrange(3)] for x in xrange(3)] for y in xrange(3)] for j in xrange(3)] for i in xrange(3)]
-        pricepTable[good][old][bad][small][cheap] = 0.5
-        pricepTable[good][old][bad][medium][cheap] = 0.4
-        pricepTable[good][old][bad][large][cheap] = 0.35
-        pricepTable[good][old][good][small][cheap] = 0.4
-        pricepTable[good][old][good][medium][cheap] = 0.35
-        pricepTable[good][old][good][large][cheap] = 0.3
-        pricepTable[good][new][bad][small][cheap] = 0.45
-        pricepTable[good][new][bad][medium][cheap] = 0.4
-        pricepTable[good][new][bad][large][cheap] = 0.35
-        pricepTable[good][new][good][small][cheap] = 0.25
-        pricepTable[good][new][good][medium][cheap] = 0.2
-        pricepTable[good][new][good][large][cheap] = 0.1
-        pricepTable[bad][old][bad][small][cheap] = 0.7
-        pricepTable[bad][old][bad][medium][cheap] = 0.65
-        pricepTable[bad][old][bad][large][cheap] = 0.65
-        pricepTable[bad][old][good][small][cheap] = 0.55
-        pricepTable[bad][old][good][medium][cheap] = 0.5
-        pricepTable[bad][old][good][large][cheap] = 0.45
-        pricepTable[bad][new][bad][small][cheap] = 0.6
-        pricepTable[bad][new][bad][medium][cheap] = 0.55
-        pricepTable[bad][new][bad][large][cheap] = 0.5
-        pricepTable[bad][new][good][small][cheap] = 0.4
-        pricepTable[bad][new][good][medium][cheap] = 0.3
-        pricepTable[bad][new][good][large][cheap] = 0.3
-        pricepTable[ugly][old][bad][small][cheap] = 0.8
-        pricepTable[ugly][old][bad][medium][cheap] = 0.75
-        pricepTable[ugly][old][bad][large][cheap] = 0.75
-        pricepTable[ugly][old][good][small][cheap] = 0.65
-        pricepTable[ugly][old][good][medium][cheap] = 0.6
-        pricepTable[ugly][old][good][large][cheap] = 0.55
-        pricepTable[ugly][new][bad][small][cheap] = 0.7
-        pricepTable[ugly][new][bad][medium][cheap] = 0.64
-        pricepTable[ugly][new][bad][large][cheap] = 0.61
-        pricepTable[ugly][new][good][small][cheap] = 0.48
-        pricepTable[ugly][new][good][medium][cheap] = 0.41
-        pricepTable[ugly][new][good][large][cheap] = 0.37
+        pricepTableDic = {}
+        pricepTableDic.update({'good old bad small cheap ': 0.5})
+        pricepTableDic.update({'good old bad medium cheap ': 0.4})
+        pricepTableDic.update({'good old bad large cheap ': 0.35})
+        pricepTableDic.update({'good old good small cheap ': 0.4})
+        pricepTableDic.update({'good old good medium cheap ': 0.35})
+        pricepTableDic.update({'good old good large cheap ': 0.3})
+        pricepTableDic.update({'good new bad small cheap ': 0.45})
+        pricepTableDic.update({'good new bad medium cheap ': 0.4})
+        pricepTableDic.update({'good new bad large cheap ': 0.35})
+        pricepTableDic.update({'good new good small cheap ': 0.25})
+        pricepTableDic.update({'good new good medium cheap ': 0.2})
+        pricepTableDic.update({'good new good large cheap ': 0.1})
+        pricepTableDic.update({'bad old bad small cheap ': 0.7})
+        pricepTableDic.update({'bad old bad medium cheap ': 0.65})
+        pricepTableDic.update({'bad old bad large cheap ': 0.65})
+        pricepTableDic.update({'bad old good small cheap ': 0.55})
+        pricepTableDic.update({'bad old good medium cheap ': 0.5})
+        pricepTableDic.update({'bad old good large cheap ': 0.45})
+        pricepTableDic.update({'bad new bad small cheap ': 0.6})
+        pricepTableDic.update({'bad new bad medium cheap ': 0.55})
+        pricepTableDic.update({'bad new bad large cheap ': 0.5})
+        pricepTableDic.update({'bad new good small cheap ': 0.4})
+        pricepTableDic.update({'bad new good medium cheap ': 0.3})
+        pricepTableDic.update({'bad new good large cheap ': 0.3})
+        pricepTableDic.update({'ugly old bad small cheap ': 0.8})
+        pricepTableDic.update({'ugly old bad medium cheap ': 0.75})
+        pricepTableDic.update({'ugly old bad large cheap ': 0.75})
+        pricepTableDic.update({'ugly old good small cheap ': 0.65})
+        pricepTableDic.update({'ugly old good medium cheap ': 0.6})
+        pricepTableDic.update({'ugly old good large cheap ': 0.55})
+        pricepTableDic.update({'ugly new bad small cheap ': 0.7})
+        pricepTableDic.update({'ugly new bad medium cheap ': 0.64})
+        pricepTableDic.update({'ugly new bad large cheap ': 0.61})
+        pricepTableDic.update({'ugly new good small cheap ': 0.48})
+        pricepTableDic.update({'ugly new good medium cheap ': 0.41})
+        pricepTableDic.update({'ugly new good large cheap ': 0.37})
 
-        pricepTable[good][old][bad][small][ok] = 0.4
-        pricepTable[good][old][bad][medium][ok] = 0.45
-        pricepTable[good][old][bad][large][ok] = 0.45
-        pricepTable[good][old][good][small][ok] = 0.3
-        pricepTable[good][old][good][medium][ok] = 0.3
-        pricepTable[good][old][good][large][ok] = 0.25
-        pricepTable[good][new][bad][small][ok] = 0.4
-        pricepTable[good][new][bad][medium][ok] = 0.45
-        pricepTable[good][new][bad][large][ok] = 0.45
-        pricepTable[good][new][good][small][ok] = 0.3
-        pricepTable[good][new][good][medium][ok] = 0.25
-        pricepTable[good][new][good][large][ok] = 0.2
-        pricepTable[bad][old][bad][small][ok] = 0.299
-        pricepTable[bad][old][bad][medium][ok] = 0.33
-        pricepTable[bad][old][bad][large][ok] = 0.32
-        pricepTable[bad][old][good][small][ok] = 0.35
-        pricepTable[bad][old][good][medium][ok] = 0.35
-        pricepTable[bad][old][good][large][ok] = 0.4
-        pricepTable[bad][new][bad][small][ok] = 0.35
-        pricepTable[bad][new][bad][medium][ok] = 0.35
-        pricepTable[bad][new][bad][large][ok] = 0.4
-        pricepTable[bad][new][good][small][ok] = 0.4
-        pricepTable[bad][new][good][medium][ok] = 0.4
-        pricepTable[bad][new][good][large][ok] = 0.3
-        pricepTable[ugly][old][bad][small][ok] = 0.1999
-        pricepTable[ugly][old][bad][medium][ok] = 0.24
-        pricepTable[ugly][old][bad][large][ok] = 0.23
-        pricepTable[ugly][old][good][small][ok] = 0.3
-        pricepTable[ugly][old][good][medium][ok] = 0.33
-        pricepTable[ugly][old][good][large][ok] = 0.37
-        pricepTable[ugly][new][bad][small][ok] = 0.27
-        pricepTable[ugly][new][bad][medium][ok] = 0.3
-        pricepTable[ugly][new][bad][large][ok] = 0.32
-        pricepTable[ugly][new][good][small][ok] = 0.42
-        pricepTable[ugly][new][good][medium][ok] = 0.39
-        pricepTable[ugly][new][good][large][ok] = 0.33
+        pricepTableDic.update({'good old bad small ok ': 0.4})
+        pricepTableDic.update({'good old bad medium ok ': 0.45})
+        pricepTableDic.update({'good old bad large ok ': 0.45})
+        pricepTableDic.update({'good old good small ok ': 0.3})
+        pricepTableDic.update({'good old good medium ok ': 0.3})
+        pricepTableDic.update({'good old good large ok ': 0.25})
+        pricepTableDic.update({'good new bad small ok ': 0.4})
+        pricepTableDic.update({'good new bad medium ok ': 0.45})
+        pricepTableDic.update({'good new bad large ok ': 0.45})
+        pricepTableDic.update({'good new good small ok ': 0.3})
+        pricepTableDic.update({'good new good medium ok ': 0.25})
+        pricepTableDic.update({'good new good large ok ': 0.2})
+        pricepTableDic.update({'bad old bad small ok ': 0.299})
+        pricepTableDic.update({'bad old bad medium ok ': 0.33})
+        pricepTableDic.update({'bad old bad large ok ': 0.32})
+        pricepTableDic.update({'bad old good small ok ': 0.35})
+        pricepTableDic.update({'bad old good medium ok ': 0.35})
+        pricepTableDic.update({'bad old good large ok ': 0.4})
+        pricepTableDic.update({'bad new bad small ok ': 0.35})
+        pricepTableDic.update({'bad new bad medium ok ': 0.35})
+        pricepTableDic.update({'bad new bad large ok ': 0.4})
+        pricepTableDic.update({'bad new good small ok ': 0.4})
+        pricepTableDic.update({'bad new good medium ok ': 0.4})
+        pricepTableDic.update({'bad new good large ok ': 0.3})
+        pricepTableDic.update({'ugly old bad small ok ': 0.1999})
+        pricepTableDic.update({'ugly old bad medium ok ': 0.24})
+        pricepTableDic.update({'ugly old bad large ok ': 0.23})
+        pricepTableDic.update({'ugly old good small ok ': 0.3})
+        pricepTableDic.update({'ugly old good medium ok ': 0.33})
+        pricepTableDic.update({'ugly old good large ok ': 0.37})
+        pricepTableDic.update({'ugly new bad small ok ': 0.27})
+        pricepTableDic.update({'ugly new bad medium ok ': 0.3})
+        pricepTableDic.update({'ugly new bad large ok ': 0.32})
+        pricepTableDic.update({'ugly new good small ok ': 0.42})
+        pricepTableDic.update({'ugly new good medium ok ': 0.39})
+        pricepTableDic.update({'ugly new good large ok ': 0.33})
 
-        pricepTable[good][old][bad][small][expensive] = 0.1
-        pricepTable[good][old][bad][medium][expensive] = 0.15
-        pricepTable[good][old][bad][large][expensive] = 0.2
-        pricepTable[good][old][good][small][expensive] = 0.3
-        pricepTable[good][old][good][medium][expensive] = 0.35
-        pricepTable[good][old][good][large][expensive] = 0.45
-        pricepTable[good][new][bad][small][expensive] = 0.15
-        pricepTable[good][new][bad][medium][expensive] = 0.15
-        pricepTable[good][new][bad][large][expensive] = 0.2
-        pricepTable[good][new][good][small][expensive] = 0.45
-        pricepTable[good][new][good][medium][expensive] = 0.55
-        pricepTable[good][new][good][large][expensive] = 0.7
-        pricepTable[bad][old][bad][small][expensive] = 0.001
-        pricepTable[bad][old][bad][medium][expensive] = 0.02
-        pricepTable[bad][old][bad][large][expensive] = 0.03
-        pricepTable[bad][old][good][small][expensive] = 0.1
-        pricepTable[bad][old][good][medium][expensive] = 0.15
-        pricepTable[bad][old][good][large][expensive] = 0.15
-        pricepTable[bad][new][bad][small][expensive] = 0.05
-        pricepTable[bad][new][bad][medium][expensive] = 0.1
-        pricepTable[bad][new][bad][large][expensive] = 0.1
-        pricepTable[bad][new][good][small][expensive] = 0.2
-        pricepTable[bad][new][good][medium][expensive] = 0.3
-        pricepTable[bad][new][good][large][expensive] = 0.4
-        pricepTable[ugly][old][bad][small][expensive] = 0.0001
-        pricepTable[ugly][old][bad][medium][expensive] = 0.01
-        pricepTable[ugly][old][bad][large][expensive] = 0.02
-        pricepTable[ugly][old][good][small][expensive] = 0.05
-        pricepTable[ugly][old][good][medium][expensive] = 0.07
-        pricepTable[ugly][old][good][large][expensive] = 0.08
-        pricepTable[ugly][new][bad][small][expensive] = 0.03
-        pricepTable[ugly][new][bad][medium][expensive] = 0.06
-        pricepTable[ugly][new][bad][large][expensive] = 0.07
-        pricepTable[ugly][new][good][small][expensive] = 0.1
-        pricepTable[ugly][new][good][medium][expensive] = 0.2
-        pricepTable[ugly][new][good][large][expensive] = 0.3
-        price.pTable = pricepTable
+        pricepTableDic.update({'good old bad small expensive ': 0.1})
+        pricepTableDic.update({'good old bad medium expensive ': 0.15})
+        pricepTableDic.update({'good old bad large expensive ': 0.2})
+        pricepTableDic.update({'good old good small expensive ': 0.3})
+        pricepTableDic.update({'good old good medium expensive ': 0.35})
+        pricepTableDic.update({'good old good large expensive ': 0.45})
+        pricepTableDic.update({'good new bad small expensive ': 0.15})
+        pricepTableDic.update({'good new bad medium expensive ': 0.15})
+        pricepTableDic.update({'good new bad large expensive ': 0.2})
+        pricepTableDic.update({'good new good small expensive ': 0.45})
+        pricepTableDic.update({'good new good medium expensive ': 0.55})
+        pricepTableDic.update({'good new good large expensive ': 0.7})
+        pricepTableDic.update({'bad old bad small expensive ': 0.001})
+        pricepTableDic.update({'bad old bad medium expensive ': 0.02})
+        pricepTableDic.update({'bad old bad large expensive ': 0.03})
+        pricepTableDic.update({'bad old good small expensive ': 0.1})
+        pricepTableDic.update({'bad old good medium expensive ': 0.15})
+        pricepTableDic.update({'bad old good large expensive ': 0.15})
+        pricepTableDic.update({'bad new bad small expensive ': 0.05})
+        pricepTableDic.update({'bad new bad medium expensive ': 0.1})
+        pricepTableDic.update({'bad new bad large expensive ': 0.1})
+        pricepTableDic.update({'bad new good small expensive ': 0.2})
+        pricepTableDic.update({'bad new good medium expensive ': 0.3})
+        pricepTableDic.update({'bad new good large expensive ': 0.4})
+        pricepTableDic.update({'ugly old bad small expensive ': 0.0001})
+        pricepTableDic.update({'ugly old bad medium expensive ': 0.01})
+        pricepTableDic.update({'ugly old bad large expensive ': 0.02})
+        pricepTableDic.update({'ugly old good small expensive ': 0.05})
+        pricepTableDic.update({'ugly old good medium expensive ': 0.07})
+        pricepTableDic.update({'ugly old good large expensive ': 0.08})
+        pricepTableDic.update({'ugly new bad small expensive ': 0.03})
+        pricepTableDic.update({'ugly new bad medium expensive ': 0.06})
+        pricepTableDic.update({'ugly new bad large expensive ': 0.07})
+        pricepTableDic.update({'ugly new good small expensive ': 0.1})
+        pricepTableDic.update({'ugly new good medium expensive ': 0.2})
+        pricepTableDic.update({'ugly new good large expensive ': 0.3})
+        price.pTableDic = pricepTableDic
+
 
         #Add created nodes into self.nodes list
         self.nodes.append(amenities)
