@@ -336,6 +336,7 @@ class Network:
         for i in xrange(numUpdates):
             currentNode = self.nodes[i%len(self.nodes)]
             currentNode.assignValue()
+        node.calcFinalProb()
 
     #Prints the name of the list of nodes
     def printNodeList(self, list):
