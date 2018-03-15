@@ -319,6 +319,8 @@ class Network:
             currentNode = self.nodes[i%len(self.nodes)]
             currentNode.assignValue()
 
+        node.calcFinalProb()
+
     #Sets all the childrenParents in the network
     def setChildrenParents(self):
         print("Setting all children parents")

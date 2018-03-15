@@ -4,7 +4,6 @@ class Node:
         self.name = name
         self.parents = []
         self.children = []
-        self.childrenParents = []
         self.evidence = False
         self.currentValue = 0
         self.valueList = []
@@ -18,7 +17,7 @@ class Node:
 
         # this will be changed
         # self.currentValue = 0
-        
+
         
 
         if self.iterations > self.deleteCnt:
