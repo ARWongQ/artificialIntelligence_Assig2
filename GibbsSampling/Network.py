@@ -63,10 +63,11 @@ class Network:
 
         schools.parents.append(children)
 
-        price.parents.append(age)
         price.parents.append(location)
-        price.parents.append(size)
+        price.parents.append(age)
         price.parents.append(schools)
+        price.parents.append(size)
+
 
         #Set children
         amenities.children.append(location)

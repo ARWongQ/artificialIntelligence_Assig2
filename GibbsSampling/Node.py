@@ -25,28 +25,36 @@ class Node:
 
         if(name == "amenities"):
             print("checking amenities")
-            #self.amenitiesMath2()
-            self.amenitiesMath()
+            #self.amenitiesMath()
+
         elif(name == "neighborhood"):
             print("checking neighborhood")
+            #self.amenitiesMath()
 
         elif(name == "location"):
             print("checking location")
+            #self.amenitiesMath()
 
         elif(name == "children"):
             print("checking children")
+            #self.amenitiesMath()
 
         elif(name == "age"):
             print("checking age")
+            #self.amenitiesMath()
 
         elif(name == "size"):
             print("checking size")
+            #self.amenitiesMath()
+
 
         elif(name == "schools"):
             print("checking schools")
+            #self.amenitiesMath()
 
         elif(name == "price"):
             print("checking price")
+            #self.amenitiesMath()
 
 
         #append value after reached deleting count
@@ -55,37 +63,40 @@ class Node:
 
     #Sets the current value based on the formula, ranges and random numb
     def amenitiesMath(self):
-        print("Calculating Amenities")
+        print("Calculating " + self.name)
         #MAGIC
         #the range [] //to get it we need the function
         #the random number to pick to set the currentValue
 
         #Number of possible outcomes
         size = len(self.possibleValues)
-        childrenNum = len(self.children)
-        parentNum= len(self.children)
-        childrenParentNum = len(self.childrenParents)
 
         #Store the probabilites
         probabilities = []
-        stringsOfEvidence = []
-
-        #My Table
-        currpTableDic = self.pTableDic
 
         #Loop 2 times to get 2 probabilities (0, 1)
         for i in xrange(size):
 
             #The probability to be added into probabilities
             curProb = 1.0
-            currString = self.numToString(i)
-            currString += " "
-            print(currString)
+            currString = ""
 
 
             #Loop to get parents information dependencies
+            for curParent in self.parents:
+                #Get the value as a number
+                value = curParent.currentValue
+                #Get the name and append it
+                currString += curParent.numToString(value)
+                currString += " "
+
+            #Add the current node string
+            currString += self.numToString(i)
+            currString += " "
+            print(currString)
 
             toMultiplySelf= self.pTableDic.get(currString)
+            print("Trying to get from table " + self.name + " The String:" + currString + "End" )
             print(toMultiplySelf)
 
             #Add the first piece of information
@@ -99,6 +110,10 @@ class Node:
                 for curParent in curChildren.parents:
                     #Get the value as a number
                     value = curParent.currentValue
+                    #You don't want your own value twice therefore you put i (the current value in the loop)
+                    if(curParent.name == self.name):
+                        value = i
+
                     #Get the name and append it
                     string += curParent.numToString(value)
                     string += " "
@@ -107,8 +122,8 @@ class Node:
                 childValue =curChildren.currentValue
                 string += curChildren.numToString(childValue)
                 string += " "
-                print("Trying to get from table " + curChildren.name + " The String: " + string + "End" )
-                print(string)
+                print("Trying to get from table " + curChildren.name + " The String:" + string + "End" )
+                print(curChildren.pTableDic.get(string))
                 #get the number from the table
                 toMultiply = curChildren.pTableDic.get(string)
 
@@ -126,23 +141,6 @@ class Node:
             #probabilities.append(currProb)
 
 
-    #Uses a map instead of array
-    def amenitiesMath2(self):
-        myTable = self.pTableDic
-        locationTable = self.children[0].pTableDic
-        locationCV = self.children[0].currentValue
-        neighborhoodCV = self.children[0].parents[0].currentValue
-
-        aLotsTemp = myTable.get("lots") * locationTable.get("lots bad bad ")
-        aLittleTemp = myTable.get("little") * locationTable.get("little bad bad ")
-
-        alpha= aLotsTemp + aLittleTemp
-
-        aLots = aLotsTemp/alpha
-        aLittle = aLittleTemp/alpha
-
-        print(aLots)
-        print(aLittle)
 
     #This function calculates the probabilty of the node which was query
     def calcFinalProb(self):
