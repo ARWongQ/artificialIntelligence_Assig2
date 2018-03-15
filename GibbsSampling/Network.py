@@ -66,7 +66,7 @@ class Network:
         price.parents.append(age)
         price.parents.append(location)
         price.parents.append(size)
-        price.parents.append(price)
+        price.parents.append(schools)
 
         #Set children
         amenities.children.append(location)
@@ -349,19 +349,26 @@ class Network:
     # def setChildrenParents(self):
     #     print("Setting all children parents")
     #     #Getting nodes form the netwrok
-    #     myNodes = self.dicNodes
+    #     myNodes = self.nodes
     #
-    #     for curNode in myNodes.itervalues():
-    #
-    #         #Performing markov blanket
-    #         parents = curNode.parents
+    #     #loop through all the nodes
+    #     for curNode in myNodes:
+    #         print("setting Node " + curNode.name)
     #         children = curNode.children
-    #         childrenParents = []
-    #         for curNode2 in children:
-    #             for curParent in curNode2.parents:
-    #                 childrenParents.append(curParent)
+    #         childrenParList = []
+    #         if(children):
+    #             childrenParList.append(curNode)
+    #         for childrenNode in children:
+    #             for childrenParNode in childrenNode.parents:
+    #                 if(childrenParNode.name != curNode.name):
+    #                     print("adding " + childrenParNode.name)
+    #                     childrenParList.append(childrenParNode)
     #
-    #
+    #         print("setting")
+    #         curNode.childrenParents = childrenParList
+
+
+
 
 
 
@@ -384,6 +391,7 @@ class Network:
             print("Evaluating the node: " + curNode.name)
             curChildren = curNode.children
             curParents = curNode.parents
+            curChildrenParents = curNode.childrenParents
 
             #Print the parents of the node
             parentStr = ""
@@ -397,8 +405,15 @@ class Network:
                 childStr += curNode.name + ", "
             print("Children: " + childStr)
 
+            #Print the childrenParents of the nodes
+            childParentStr = ""
+            for curNode2 in curChildrenParents:
+                childParentStr += curNode2.name + ", "
+            print("ChildrenParents: " + childParentStr)
+
+
     def printingNetworkMaps(self):
-        print("Prining the network using maps")
+        print("Printing the network using maps")
         myNodes = self.dicNodes
 
         for curNode in myNodes.itervalues():

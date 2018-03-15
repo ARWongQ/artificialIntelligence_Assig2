@@ -4,6 +4,7 @@ class Node:
         self.name = name
         self.parents = []
         self.children = []
+        self.childrenParents = []
         self.evidence = False
         self.currentValue = 0
         self.valueList = []
@@ -21,9 +22,6 @@ class Node:
         # this will be changed
         # self.currentValue = 0
 
-        #MAGIC
-        #the range [] //to get it we need the function
-        #the random number to pick to set the currentValue
 
         if(name == "amenities"):
             print("checking amenities")
@@ -51,35 +49,40 @@ class Node:
             print("checking price")
 
 
-
-
-
-
-
-
-
-
         #append value after reached deleting count
         if self.iterations > self.deleteCnt:
             self.valueList.append(self.currentValue)
 
     #Sets the current value based on the formula, ranges and random numb
     def amenitiesMath(self):
-        myTable = self.pTable
-        locationTable = self.children[0].pTable
-        locationCV = self.children[0].currentValue
-        neighborhoodCV = self.children[0].parents[0].currentValue
+        print("Calculating Amenities")
+        #MAGIC
+        #the range [] //to get it we need the function
+        #the random number to pick to set the currentValue
 
-        aLotsTemp = myTable[0] * locationTable[0][neighborhoodCV][locationCV]
-        aLittleTemp = myTable[1] * locationTable[0][neighborhoodCV][locationCV]
+        #Number of possible outcomes
+        size = len(self.possibleValues)
+        childrenNum = len(self.children)
+        parentNum= len(self.children)
+        childrenParentNum = len(self.childrenParents)
 
-        alpha= aLotsTemp + aLittleTemp
+        #Store the probabilites
+        probabilities = []
+        stringsOfEvidence = []
 
-        aLots = aLotsTemp/alpha
-        aLittle = aLittleTemp/alpha
+        #My Table
+        currpTableDic = self.pTableDic
+        #Loop 2 times to get 2 probabilities (0, 1)
+        for i in xrange(size):
+            currString = self.numToString(i)
 
-        print(aLots)
-        print(aLittle)
+            #Now get location prob
+            for curNode in self.children:
+                print()
+
+            currProb = currpTableDic.get(currString)
+            probabilities.append(currProb)
+
 
     #Uses a map instead of array
     def amenitiesMath2(self):
@@ -113,9 +116,16 @@ class Node:
 
 
     #Converts a number to a string
-    def numToString(self):
+    def numToString(self, index):
         print("Converting to String")
+        return self.possibleValues[index]
 
     #Converts a string to a number
-    def stringToNum(self):
+    def stringToNum(self, string):
         print("Converting to Num")
+
+        for i in xrange(len(self.possibleValues)):
+            if(self.possibleValues[i] == string):
+                return i
+        else:
+            return -1
