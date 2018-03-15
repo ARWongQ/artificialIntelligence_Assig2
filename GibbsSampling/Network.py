@@ -368,10 +368,6 @@ class Network:
             offset += 2
 
 
-
-
-
-
     #Set random values to the whole newtork
     def setRandomValues(self):
         #Currently they all start with "0"
@@ -465,3 +461,4 @@ class Network:
     #
     #         print("setting")
     #         curNode.childrenParents = childrenParList
+
