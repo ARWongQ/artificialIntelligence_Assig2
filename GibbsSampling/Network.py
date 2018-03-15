@@ -9,46 +9,46 @@ class Network:
 
         #Create all the Node Object
         amenitiesOp = []
-        amenitiesOp.append("Lots")
-        amenitiesOp.append("Little")
+        amenitiesOp.append("lots")
+        amenitiesOp.append("little")
         amenities =     Node("amenities", amenitiesOp)
 
         neighborhoodOp = []
-        neighborhoodOp.append("Bad")
-        neighborhoodOp.append("Good")
+        neighborhoodOp.append("bad")
+        neighborhoodOp.append("good")
         neighborhood =  Node("neighborhood", neighborhoodOp)
 
         locationOp = []
-        locationOp.append("Bad")
-        locationOp.append("Good")
-        locationOp.append("Ugly")
+        locationOp.append("bad")
+        locationOp.append("good")
+        locationOp.append("ugly")
         location =      Node("location", locationOp)
 
         childrenOp = []
-        childrenOp.append("Bad")
-        childrenOp.append("Good")
+        childrenOp.append("bad")
+        childrenOp.append("good")
         children =      Node("children", childrenOp)
 
         ageOp = []
-        ageOp.append("Old")
-        ageOp.append("New")
+        ageOp.append("old")
+        ageOp.append("new")
         age =           Node("age", ageOp)
 
         sizeOp = []
-        sizeOp.append("Small")
-        sizeOp.append("Medium")
-        sizeOp.append("Large")
+        sizeOp.append("small")
+        sizeOp.append("medium")
+        sizeOp.append("large")
         size =          Node("size", sizeOp)
 
         schoolsOp = []
-        schoolsOp.append("Bad")
-        schoolsOp.append("Good")
+        schoolsOp.append("bad")
+        schoolsOp.append("good")
         schools =       Node("schools", schoolsOp)
 
         priceOp = []
-        priceOp.append("Cheap")
-        priceOp.append("Ok")
-        priceOp.append("Expensive")
+        priceOp.append("cheap")
+        priceOp.append("ok")
+        priceOp.append("expensive")
         price =         Node("price", priceOp)
 
 
@@ -110,15 +110,15 @@ class Network:
         #Amenities
         #lots=0 little=1
         amenitiespTableDic = {}
-        amenitiespTableDic.update({'lots': 0.3})
-        amenitiespTableDic.update({'little': 0.7})
+        amenitiespTableDic.update({'lots ': 0.3})
+        amenitiespTableDic.update({'little ': 0.7})
         amenities.pTableDic = amenitiespTableDic
 
         #Neighborhood
         #bad=0 good=1
         neighborhoodpTableDic = {}
-        neighborhoodpTableDic.update({'bad': 0.4})
-        neighborhoodpTableDic.update({'good': 0.6})
+        neighborhoodpTableDic.update({'bad ': 0.4})
+        neighborhoodpTableDic.update({'good ': 0.6})
         neighborhood.pTableDic = neighborhoodpTableDic
 
         #Location
@@ -156,9 +156,9 @@ class Network:
         #Size
         # small=0 medium=1 large=2
         sizepTableDic = {}
-        sizepTableDic.update({'small': 0.33})
-        sizepTableDic.update({'medium': 0.34})
-        sizepTableDic.update({'large': 0.33})
+        sizepTableDic.update({'small ': 0.33})
+        sizepTableDic.update({'medium ': 0.34})
+        sizepTableDic.update({'large ': 0.33})
         size.pTableDic = sizepTableDic
 
 

@@ -25,8 +25,8 @@ class Node:
 
         if(name == "amenities"):
             print("checking amenities")
-            self.amenitiesMath2()
-
+            #self.amenitiesMath2()
+            self.amenitiesMath()
         elif(name == "neighborhood"):
             print("checking neighborhood")
 
@@ -72,16 +72,58 @@ class Node:
 
         #My Table
         currpTableDic = self.pTableDic
+
         #Loop 2 times to get 2 probabilities (0, 1)
         for i in xrange(size):
+
+            #The probability to be added into probabilities
+            curProb = 1.0
             currString = self.numToString(i)
+            currString += " "
+            print(currString)
 
-            #Now get location prob
-            for curNode in self.children:
-                print()
 
-            currProb = currpTableDic.get(currString)
-            probabilities.append(currProb)
+            #Loop to get parents information dependencies
+
+            toMultiplySelf= self.pTableDic.get(currString)
+            print(toMultiplySelf)
+
+            #Add the first piece of information
+            curProb *= toMultiplySelf
+
+
+            #Loop to get the number of children
+            for curChildren in self.children:
+                #From the children we need to know the parents info
+                string = ""
+                for curParent in curChildren.parents:
+                    #Get the value as a number
+                    value = curParent.currentValue
+                    #Get the name and append it
+                    string += curParent.numToString(value)
+                    string += " "
+
+                #We now have the string missing the current node
+                childValue =curChildren.currentValue
+                string += curChildren.numToString(childValue)
+                string += " "
+                print("Trying to get from table " + curChildren.name + " The String: " + string + "End" )
+                print(string)
+                #get the number from the table
+                toMultiply = curChildren.pTableDic.get(string)
+
+                #Add the next piece of information
+                curProb *= toMultiply
+
+            #Now append the curProb
+            probabilities.append(curProb)
+
+            for x in probabilities:
+                print(x)
+
+
+            #currProb = currpTableDic.get(currString)
+            #probabilities.append(currProb)
 
 
     #Uses a map instead of array
@@ -117,13 +159,11 @@ class Node:
 
     #Converts a number to a string
     def numToString(self, index):
-        print("Converting to String")
         return self.possibleValues[index]
 
     #Converts a string to a number
     def stringToNum(self, string):
-        print("Converting to Num")
-
+        #Loop through the possible values and get the correct index
         for i in xrange(len(self.possibleValues)):
             if(self.possibleValues[i] == string):
                 return i
