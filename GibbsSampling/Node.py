@@ -1,3 +1,5 @@
+from random import random
+
 #Class for the Nodes that will go inside the Bayesian Network
 class Node:
     def __init__(self, name, possibleValues):
@@ -16,46 +18,9 @@ class Node:
     #Sets the specific value based on the Markov blanket of the node its probability and a random number
     def assignValue(self):
         self.iterations+=1
-        name = self.name
 
-
-        # this will be changed
-        # self.currentValue = 0
-
-
-        if(name == "amenities"):
-            print("checking amenities")
-            #self.amenitiesMath()
-
-        elif(name == "neighborhood"):
-            print("checking neighborhood")
-            #self.amenitiesMath()
-
-        elif(name == "location"):
-            print("checking location")
-            #self.amenitiesMath()
-
-        elif(name == "children"):
-            print("checking children")
-            #self.amenitiesMath()
-
-        elif(name == "age"):
-            print("checking age")
-            #self.amenitiesMath()
-
-        elif(name == "size"):
-            print("checking size")
-            #self.amenitiesMath()
-
-
-        elif(name == "schools"):
-            print("checking schools")
-            #self.amenitiesMath()
-
-        elif(name == "price"):
-            print("checking price")
-            #self.amenitiesMath()
-
+        #Assigns the currentValue
+        self.amenitiesMath()
 
         #append value after reached deleting count
         if self.iterations > self.deleteCnt:
@@ -93,11 +58,11 @@ class Node:
             #Add the current node string
             currString += self.numToString(i)
             currString += " "
-            print(currString)
+            # print(currString)
 
             toMultiplySelf= self.pTableDic.get(currString)
-            print("Trying to get from table " + self.name + " The String:" + currString + "End" )
-            print(toMultiplySelf)
+            # print("Trying to get from table " + self.name + " The String:" + currString + "End" )
+            # print(toMultiplySelf)
 
             #Add the first piece of information
             curProb *= toMultiplySelf
@@ -122,8 +87,8 @@ class Node:
                 childValue =curChildren.currentValue
                 string += curChildren.numToString(childValue)
                 string += " "
-                print("Trying to get from table " + curChildren.name + " The String:" + string + "End" )
-                print(curChildren.pTableDic.get(string))
+                # print("Trying to get from table " + curChildren.name + " The String:" + string + "End" )
+                # print(curChildren.pTableDic.get(string))
                 #get the number from the table
                 toMultiply = curChildren.pTableDic.get(string)
 
@@ -133,12 +98,32 @@ class Node:
             #Now append the curProb
             probabilities.append(curProb)
 
-            for x in probabilities:
+
+
+        #Get the normalization factor
+        sum = 0.0
+        for x in probabilities:
+            sum += x
+
+        #Set new probabilities
+        for i, val in enumerate(probabilities):
+            probabilities[i] = val/sum
+
+        #Making sure the probabilities add to 1
+        print("Printing Probabilities!!!")
+        for x in probabilities:
                 print(x)
 
+        #Random number
+        randValue = random()
 
-            #currProb = currpTableDic.get(currString)
-            #probabilities.append(currProb)
+        #Set the current Value randomly
+        totalProb = 0
+        for i in xrange(len(self.possibleValues)):
+            totalProb += probabilities[i]
+            if(randValue <= totalProb):
+                self.currentValue = i
+                break
 
 
 
@@ -151,7 +136,9 @@ class Node:
         #Loop through all possible values and count them and with that print
         for x in xrange(len(self.possibleValues)):
             numCnt = self.valueList.count(x)
-            print('P('+self.name+' = '+self.possibleValues[x]+') = ' + str(numCnt/len(self.valueList)))
+
+            #print('P('+self.name+' = '+self.possibleValues[x]+') = ' + str(numCnt/len(self.valueList)))
+            print('P('+self.name+' = '+self.possibleValues[x]+') = ' + str(float(numCnt)/float(len(self.valueList))))
 
 
 

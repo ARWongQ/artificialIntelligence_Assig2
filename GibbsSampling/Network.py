@@ -1,4 +1,5 @@
 from Node import Node
+import random
 
 #Class for the Bayesian Network
 class Network:
@@ -331,20 +332,117 @@ class Network:
         for curNode in self.nodes:
             curNode.deleteCnt = numDrops
 
+        #Keep track of the nodes that have no evidence assigned
+        noEvidenceNodes = []
+        for curNode in self.nodes:
+            #Adding nodes that have no evidence
+            if(curNode.evidence == False):
+                noEvidenceNodes.append(curNode)
+
 
         #Looping through all the nodes and assigns a new value every update for each node
         for i in xrange(numUpdates):
+
             currentNode = self.nodes[i%len(self.nodes)]
             currentNode.assignValue()
 
         node.calcFinalProb()
 
+
+    #Set all the evidence from the user input to the network
+    def setAllEvidence(self, evidences):
+        print("Setting evidence")
+        myNodes = self.dicNodes
+
+        size = len(evidences)/2
+        offset= 0
+        for i in xrange(size):
+            #Get the node
+            curNode = myNodes.get(evidences[offset])
+            #Set evidence true
+            curNode.evidence = True
+
+            #Set the evidence
+            curNode.currentValue = curNode.stringToNum(evidences[offset + 1])
+            print(curNode.currentValue)
+            offset += 2
+
+
+
+
+
+
     #Set random values to the whole newtork
     def setRandomValues(self):
         #Currently they all start with "0"
         for curNode in self.nodes:
-            curNode.currentValue = 0
+            #Get the range of the values
+            numValues=len(curNode.possibleValues)
 
+            #Get the ranomd integer and set it
+            randomInt= random.randint(0, numValues-1)
+            curNode.currentValue = randomInt
+
+
+    #THESE FUNCTIONS WERE USED TO TEST THE NETWORK
+    #
+    # #Prints the name of the list of nodes
+    # def printNodeList(self, list):
+    #     str = ""
+    #     #add all of the node's names to the string
+    #     for curNode in list:
+    #         str += curNode.name + ", "
+    #     print(str)
+
+    # def printingNetwork(self):
+    #     print("Prining the network")
+    #     myNodes = self.nodes
+    #
+    #     for curNode in myNodes:
+    #         print("Evaluating the node: " + curNode.name)
+    #         curChildren = curNode.children
+    #         curParents = curNode.parents
+    #         curChildrenParents = curNode.childrenParents
+    #
+    #         #Print the parents of the node
+    #         parentStr = ""
+    #         for curNode in curParents:
+    #             parentStr += curNode.name + ", "
+    #         print("Parents: " + parentStr)
+    #
+    #         #Print the children of the nodes
+    #         childStr = ""
+    #         for curNode in curChildren:
+    #             childStr += curNode.name + ", "
+    #         print("Children: " + childStr)
+    #
+    #         #Print the childrenParents of the nodes
+    #         childParentStr = ""
+    #         for curNode2 in curChildrenParents:
+    #             childParentStr += curNode2.name + ", "
+    #         print("ChildrenParents: " + childParentStr)
+    #
+    #
+    # def printingNetworkMaps(self):
+    #     print("Printing the network using maps")
+    #     myNodes = self.dicNodes
+    #
+    #     for curNode in myNodes.itervalues():
+    #         print("Evaluating the node: " + curNode.name)
+    #         curChildren = curNode.children
+    #         curParents = curNode.parents
+    #
+    #         #Print the parents of the node
+    #         parentStr = ""
+    #         for curNode in curParents:
+    #             parentStr += curNode.name + ", "
+    #         print("Parents: " + parentStr)
+    #
+    #         #Print the children of the nodes
+    #         childStr = ""
+    #         for curNode in curChildren:
+    #             childStr += curNode.name + ", "
+    #         print("Children: " + childStr)
 
     # #Sets all the childrenParents in the network
     # def setChildrenParents(self):
@@ -367,69 +465,3 @@ class Network:
     #
     #         print("setting")
     #         curNode.childrenParents = childrenParList
-
-
-
-
-
-
-
-
-
-    #Prints the name of the list of nodes
-    def printNodeList(self, list):
-        str = ""
-        #add all of the node's names to the string
-        for curNode in list:
-            str += curNode.name + ", "
-        print(str)
-
-    def printingNetwork(self):
-        print("Prining the network")
-        myNodes = self.nodes
-
-        for curNode in myNodes:
-            print("Evaluating the node: " + curNode.name)
-            curChildren = curNode.children
-            curParents = curNode.parents
-            curChildrenParents = curNode.childrenParents
-
-            #Print the parents of the node
-            parentStr = ""
-            for curNode in curParents:
-                parentStr += curNode.name + ", "
-            print("Parents: " + parentStr)
-
-            #Print the children of the nodes
-            childStr = ""
-            for curNode in curChildren:
-                childStr += curNode.name + ", "
-            print("Children: " + childStr)
-
-            #Print the childrenParents of the nodes
-            childParentStr = ""
-            for curNode2 in curChildrenParents:
-                childParentStr += curNode2.name + ", "
-            print("ChildrenParents: " + childParentStr)
-
-
-    def printingNetworkMaps(self):
-        print("Printing the network using maps")
-        myNodes = self.dicNodes
-
-        for curNode in myNodes.itervalues():
-            print("Evaluating the node: " + curNode.name)
-            curChildren = curNode.children
-            curParents = curNode.parents
-
-            #Print the parents of the node
-            parentStr = ""
-            for curNode in curParents:
-                parentStr += curNode.name + ", "
-            print("Parents: " + parentStr)
-
-            #Print the children of the nodes
-            childStr = ""
-            for curNode in curChildren:
-                childStr += curNode.name + ", "
-            print("Children: " + childStr)

@@ -12,6 +12,9 @@ def main():
     #Observed Evidence
     evidencesStr = raw_input("Add all the evidences ")
     evidences = evidencesStr.replace('=',' ').split(' ')
+    #Delete white spaces :)
+    evidences = filter(None, evidences)
+
     print(evidences)
 
     numUpdates= raw_input("Number of updates to perform ")
@@ -23,6 +26,9 @@ def main():
 
     #Set random values for the nodes
     myNetwork.setRandomValues()
+
+    #setting the evidence
+    myNetwork.setAllEvidence(evidences)
 
     #Perform Query
     myNetwork.query(nodeQuery,int(numUpdates),int(numDrops))
