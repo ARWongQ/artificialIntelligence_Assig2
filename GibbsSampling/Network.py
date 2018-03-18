@@ -323,9 +323,10 @@ class Network:
         #Hashmaps
         self.dicNodes = dict([ (n.name, n) for n in self.nodes ])
 
-    #Query
+    #Query the node by performing GIBBS Sampling
     def query(self, nodeQuery, numUpdates, numDrops):
         node = self.dicNodes.get(nodeQuery)
+        print("")
         print("Performing Query of " + node.name)
 
         #Set all the numDrops for the nodes in the network

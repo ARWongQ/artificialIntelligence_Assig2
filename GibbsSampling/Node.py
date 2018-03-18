@@ -25,6 +25,8 @@ class Node:
         if self.iterations > self.deleteCnt:
             self.valueList.append(self.currentValue)
 
+
+
     #Sets the current value based on the formula, ranges and random numb
     def naiveBayes(self):
         #Number of possible outcomes

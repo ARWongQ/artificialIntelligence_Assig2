@@ -12,10 +12,10 @@ def main():
     #Observed Evidence
     evidencesStr = raw_input("Add all the evidences ")
     evidences = evidencesStr.replace('=',' ').split(' ')
-    #Delete white spaces :)
-    evidences = filter(None, evidences)
 
-    print(evidences)
+    #Delete white spaces
+    evidences = filter(None, evidences)
+    #print(evidences)
 
     numUpdates= raw_input("Number of updates to perform ")
     numDrops =  raw_input("Number of initial samples to drop ")
