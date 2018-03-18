@@ -377,7 +377,7 @@ class Network:
             #Get the ranomd integer and set it
             randomInt= random.randint(0, numValues-1)
             curNode.currentValue = randomInt
-            print(randomInt)
+            #print(randomInt)
 
 
     #THESE FUNCTIONS WERE USED TO TEST THE NETWORK
