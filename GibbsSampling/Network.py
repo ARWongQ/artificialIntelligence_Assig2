@@ -351,7 +351,6 @@ class Network:
 
     #Set all the evidence from the user input to the network
     def setAllEvidence(self, evidences):
-        print("Setting evidence")
         myNodes = self.dicNodes
 
         size = len(evidences)/2
@@ -364,7 +363,7 @@ class Network:
 
             #Set the evidence
             curNode.currentValue = curNode.stringToNum(evidences[offset + 1])
-            print(curNode.currentValue)
+            #print(curNode.currentValue)
             offset += 2
 
 
@@ -378,6 +377,7 @@ class Network:
             #Get the ranomd integer and set it
             randomInt= random.randint(0, numValues-1)
             curNode.currentValue = randomInt
+            print(randomInt)
 
 
     #THESE FUNCTIONS WERE USED TO TEST THE NETWORK

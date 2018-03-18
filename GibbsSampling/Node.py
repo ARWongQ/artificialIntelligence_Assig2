@@ -19,19 +19,14 @@ class Node:
         self.iterations+=1
 
         #Assigns the currentValue
-        self.amenitiesMath()
+        self.naiveBayes()
 
         #append value after reached deleting count
         if self.iterations > self.deleteCnt:
             self.valueList.append(self.currentValue)
 
     #Sets the current value based on the formula, ranges and random numb
-    def amenitiesMath(self):
-        print("Calculating " + self.name)
-        #MAGIC
-        #the range [] //to get it we need the function
-        #the random number to pick to set the currentValue
-
+    def naiveBayes(self):
         #Number of possible outcomes
         size = len(self.possibleValues)
 
@@ -109,9 +104,10 @@ class Node:
             probabilities[i] = val/sum
 
         #Making sure the probabilities add to 1
-        print("Printing Probabilities!!!")
-        for x in probabilities:
-                print(x)
+        # print("Printing Probabilities!!!")
+        # for x in probabilities:
+        #         print(x)
+
 
         #Random number
         randValue = random()
