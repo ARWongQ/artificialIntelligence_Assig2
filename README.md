@@ -1,1 +1,1 @@
-# artificialIntelligence_Assig2
+## Gibbs Sampling
